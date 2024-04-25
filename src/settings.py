@@ -6,12 +6,16 @@ class Settings(BaseSettings):
     """Class for all server environment variables."""
 
     DB_HOST: str = Field("postgres", description="Database connection host name")
-    DB_PORT: PositiveInt = Field(
-        5432, description="Database connection port", ge=5000, le=6000
-    )
+    DB_PORT: PositiveInt = Field(5432, description="Database connection port", ge=5000, le=6000)
     DB_NAME: str = Field(..., description="Name of the database to interact with")
     DB_PASSWORD: str = Field(..., description="Password for database connection")
     DB_USER: str = Field(..., description="User name to make database operations")
+
+    JWT_SECRET_KEY: str = Field(..., description="Secret key to generate JWT signature")
+    ALGORITHM: str = Field(..., description="Crypto algorithm to generate JWT signature")
+    ACCESS_TOKEN_EXPIRE_MINUTES: PositiveInt = Field(
+        ..., description="Time access tken is valid after creation", le=60, ge=5
+    )
 
     @property
     def database_dsn(self) -> str:
