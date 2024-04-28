@@ -1,7 +1,18 @@
 from datetime import timedelta
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, Form, HTTPException, Response, status
+from fastapi import (
+    APIRouter,
+    Depends,
+    Form,
+    HTTPException,
+    Query,
+    Request,
+    Response,
+    status,
+)
+from fastapi.responses import RedirectResponse
+from fastapi.templating import Jinja2Templates
 
 from auth.dependencies import (
     authenticate_user,
@@ -12,13 +23,20 @@ from auth.models import User
 from settings import settings
 
 router = APIRouter(prefix="/auth", tags=["auth"])
+templates = Jinja2Templates(directory="templates")
 
 
-@router.post("/login/", status_code=status.HTTP_200_OK)
+@router.get("/login/", status_code=status.HTTP_200_OK)
+async def login_page(request: Request):
+    return templates.TemplateResponse(request=request, name="login.html")
+
+
+@router.post("/login/")
 async def login_for_access_token(
     username: Annotated[str, Form()],
     password: Annotated[str, Form()],
     response: Response,
+    redirect_on_success: Annotated[str, Query()] = "/",
 ):
     user = authenticate_user(username, password)
     if not user:
@@ -28,8 +46,16 @@ async def login_for_access_token(
         )
     access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(data={"sub": user.username}, expires_delta=access_token_expires)
+    response = RedirectResponse(url=redirect_on_success, status_code=status.HTTP_303_SEE_OTHER)
     response.set_cookie(key="api_token", value=access_token, httponly=True, samesite="lax")
-    return {"username": username}
+    return response
+
+
+@router.get("/logout/", status_code=status.HTTP_200_OK)
+async def logout(response: Response):
+    response = RedirectResponse(url="/")
+    response.delete_cookie(key="api_token", httponly=True, samesite="lax")
+    return response
 
 
 @router.get("/users/me/", response_model=User)

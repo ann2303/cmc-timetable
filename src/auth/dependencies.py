@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta, timezone
 from typing import Annotated
 
-from fastapi import Cookie, Depends, HTTPException, status
+from fastapi import Cookie, Depends, HTTPException
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 
@@ -9,6 +9,11 @@ from auth.models import TokenData, User, UserInDB
 from settings import settings
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+
+class RequiresLoginError(Exception):
+    pass
+
 
 fake_users_db = {
     "johndoe": {
@@ -55,11 +60,10 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
     return encoded_jwt
 
 
-async def get_current_user(api_token: Annotated[str, Cookie()]):
-    credentials_exception = HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Authorization cookie is not provided or token is expired.",
-    )
+async def get_current_user(api_token: Annotated[str | None, Cookie()] = None):
+    credentials_exception = RequiresLoginError()
+    if api_token is None:
+        raise credentials_exception
     try:
         payload = jwt.decode(api_token, settings.JWT_SECRET_KEY, algorithms=[settings.ALGORITHM])
         username: str | None = payload.get("sub")

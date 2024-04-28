@@ -1,8 +1,11 @@
+from urllib import parse
+
 import alembic.config
-from fastapi import FastAPI, status
-from fastapi.responses import ORJSONResponse
+from fastapi import FastAPI, Request, status
+from fastapi.responses import ORJSONResponse, RedirectResponse
 
 from auth.api import router
+from auth.dependencies import RequiresLoginError
 
 # run migrations to update database state
 alembic_args = [
@@ -15,6 +18,11 @@ alembic.config.main(argv=alembic_args)
 
 app = FastAPI(default_response_class=ORJSONResponse)
 app.include_router(router)
+
+
+@app.exception_handler(RequiresLoginError)
+async def redirect_to_login(request: Request, exc: RequiresLoginError):
+    return RedirectResponse(url=f"/auth/login/?redirect_on_success={parse.quote(request.url.path)}")
 
 
 @app.get("/health", status_code=status.HTTP_200_OK)
