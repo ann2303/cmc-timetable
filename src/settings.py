@@ -1,3 +1,5 @@
+"""Module with api environment settings definition."""
+
 from pydantic import Field, PositiveInt
 from pydantic_settings import BaseSettings
 
@@ -19,6 +21,7 @@ class Settings(BaseSettings):
 
     @property
     def database_dsn(self) -> str:
+        """Return postgresql dsn with asynchronous driver asyncpg."""
         return "postgresql+asyncpg://{user}:{password}@{host}:{port}/{db}".format(
             db=self.DB_NAME,
             user=self.DB_USER,
@@ -29,6 +32,7 @@ class Settings(BaseSettings):
 
     @property
     def sync_database_dsn(self) -> str:
+        """Return postgresql dsn with synchronous driver psycopg2."""
         return "postgresql+psycopg2://{user}:{password}@{host}:{port}/{db}".format(
             db=self.DB_NAME,
             user=self.DB_USER,

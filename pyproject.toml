@@ -4,3 +4,20 @@ target-version = ["py311"]
 
 [tool.isort]
 profile = "black"
+
+[tool.flake8]
+max-line-length = 120
+exclude = [
+    ".git",
+    "__pycache__",
+    "venv",
+    "migrations"
+]
+extend-ignore = [
+    "E203",
+    "SC100",
+    "SC200",
+    "DAR101",
+    "DAR201",
+    "DAR401"
+]
