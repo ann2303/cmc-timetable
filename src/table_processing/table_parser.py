@@ -1,7 +1,6 @@
 import camelot
 import pandas as pd
 from abc import abstractmethod, ABC
-import re
 
 
 class TableParser(ABC):
@@ -23,7 +22,7 @@ class TableParser(ABC):
         pass
     
     def get_table(self):
-        if self.table:
+        if self.table is not None:
             return self.table
         else:
             self.table = self.parse()
@@ -41,8 +40,6 @@ class PDFTableParser(TableParser):
     def parse(self):
         table = camelot.read_pdf(self.file)[0]
         return table.df
-
-
     
         
 class PickleParser(TableParser):
@@ -50,5 +47,23 @@ class PickleParser(TableParser):
     
     def parse(self):
         return pd.read_pickle(self.file)
+    
+
+class ExcelTableParser(TableParser):
+    """Parse tables from an Excel file."""
+    
+    def __init__(self, file, sheet_name=None):
+        super().__init__(file)
+        self.sheet_name = sheet_name
+
+    def parse(self):
+        excel_file = pd.ExcelFile(self.file)
+        result = excel_file.parse()
+        if type(result) == dict:
+            if self.sheet_name is None:
+                raise ValueError("Excel file contains multiple sheets. Please specify the sheet name.")
+            else:
+                return result[self.sheet_name]
+        return result
         
     
