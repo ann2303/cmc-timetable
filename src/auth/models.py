@@ -1,6 +1,8 @@
 """Module with models for authentication purposes."""
 
-from pydantic import BaseModel
+from typing import Any
+
+from pydantic import BaseModel, EmailStr, field_validator
 
 
 class TokenData(BaseModel):
@@ -13,9 +15,26 @@ class User(BaseModel):
     """User model without sensitive data."""
 
     username: str
-    email: str | None = None
-    full_name: str | None = None
-    disabled: bool | None = None
+    full_name: str
+    email: EmailStr
+    group: int | None
+    is_admin: bool = False
+    disabled: bool = False
+
+    @field_validator("group")
+    @classmethod
+    def check_group(cls, value: Any):
+        """Check that group value is in right range."""
+        if value is None:
+            return value
+        if not (101 <= value <= 630):
+            raise ValueError("group parameter must be between 101 and 630")
+        return value
+
+    class Config:
+        """Define configuration to get values from class attributes."""
+
+        from_attributes = True
 
 
 class UserInDB(User):

@@ -42,7 +42,7 @@ async def login_for_access_token(
     redirect_on_success: Annotated[str, Query()] = "/",
 ):
     """Log in user and redirect to required page."""
-    user = authenticate_user(username, password)
+    user = await authenticate_user(username, password)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
