@@ -1,3 +1,5 @@
+"""Module with auth handlers dependencies."""
+
 from datetime import datetime, timedelta, timezone
 from typing import Annotated
 
@@ -6,50 +8,36 @@ from jose import JWTError, jwt
 from passlib.context import CryptContext
 
 from auth.models import TokenData, User, UserInDB
+from db.dao import AsyncSession
+from db.user.dao import UserDAO
 from settings import settings
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 class RequiresLoginError(Exception):
+    """Exception on invalid authentication."""
+
     pass
 
 
-fake_users_db = {
-    "johndoe": {
-        "username": "johndoe",
-        "full_name": "John Doe",
-        "email": "johndoe@example.com",
-        "hashed_password": "$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",
-        "disabled": False,
-    }
-}
-
-
-def verify_password(plain_password, hashed_password):
+def _verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
 
-def get_password_hash(password):
-    return pwd_context.hash(password)
-
-
-def get_user(db, username: str) -> UserInDB | None:
-    if username in db:
-        user_dict = db[username]
-        return UserInDB(**user_dict)
-
-
-def authenticate_user(username: str, password: str) -> UserInDB | None:
-    user = get_user(fake_users_db, username)
+async def authenticate_user(username: str, password: str) -> UserInDB | None:
+    """Get user by username and password."""
+    async with AsyncSession.begin() as session:
+        user = await UserDAO.get_user_by_username(username=username, session=session)
     if not user:
         return None
-    if not verify_password(password, user.hashed_password):
+    if not _verify_password(password, user.hashed_password):
         return None
-    return user
+    return UserInDB.model_validate(user)
 
 
 def create_access_token(data: dict, expires_delta: timedelta | None = None):
+    """Create JWT for authentication."""
     to_encode = data.copy()
     if expires_delta:
         expire = datetime.now(timezone.utc) + expires_delta
@@ -61,6 +49,7 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
 
 
 async def get_current_user(api_token: Annotated[str | None, Cookie()] = None):
+    """Get current user based on cookie."""
     credentials_exception = RequiresLoginError()
     if api_token is None:
         raise credentials_exception
@@ -72,15 +61,17 @@ async def get_current_user(api_token: Annotated[str | None, Cookie()] = None):
         token_data = TokenData(username=username)
     except JWTError:
         raise credentials_exception
-    user = get_user(fake_users_db, username=token_data.username)
+    async with AsyncSession.begin() as session:
+        user = await UserDAO.get_user_by_username(username=token_data.username, session=session)
     if user is None:
         raise credentials_exception
-    return user
+    return User.model_validate(user)
 
 
 async def get_current_active_user(
     current_user: Annotated[User, Depends(get_current_user)],
 ):
+    """Return current active user."""
     if current_user.disabled:
         raise HTTPException(status_code=400, detail="Inactive user")
     return current_user

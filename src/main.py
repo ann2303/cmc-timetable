@@ -1,3 +1,5 @@
+"""Service entrypoint module."""
+
 from urllib import parse
 
 import alembic.config
@@ -22,6 +24,7 @@ app.include_router(router)
 
 @app.exception_handler(RequiresLoginError)
 async def redirect_to_login(request: Request, exc: RequiresLoginError):
+    """Redirect to login page for pages, that require authentication."""
     return RedirectResponse(url=f"/auth/login/?redirect_on_success={parse.quote(request.url.path)}")
 
 

@@ -1,3 +1,5 @@
+"""Module with auth handlers."""
+
 from datetime import timedelta
 from typing import Annotated
 
@@ -28,6 +30,7 @@ templates = Jinja2Templates(directory="templates")
 
 @router.get("/login/", status_code=status.HTTP_200_OK)
 async def login_page(request: Request):
+    """Show log in page."""
     return templates.TemplateResponse(request=request, name="login.html")
 
 
@@ -38,7 +41,8 @@ async def login_for_access_token(
     response: Response,
     redirect_on_success: Annotated[str, Query()] = "/",
 ):
-    user = authenticate_user(username, password)
+    """Log in user and redirect to required page."""
+    user = await authenticate_user(username, password)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -53,6 +57,7 @@ async def login_for_access_token(
 
 @router.get("/logout/", status_code=status.HTTP_200_OK)
 async def logout(response: Response):
+    """Log out user and redirect to root page."""
     response = RedirectResponse(url="/")
     response.delete_cookie(key="api_token", httponly=True, samesite="lax")
     return response
@@ -62,4 +67,5 @@ async def logout(response: Response):
 async def read_users_me(
     current_user: Annotated[User, Depends(get_current_active_user)],
 ):
+    """Return user from request."""
     return current_user
