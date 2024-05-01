@@ -39,5 +39,7 @@ starlette==0.37.2
 tomli==2.0.1
 typing_extensions==4.11.0
 uvicorn==0.29.0
-camelot_py==0.11.0
+opencv-python
+camelot-py[base]
 pandas==2.0.3
+python-multipart==0.0.9

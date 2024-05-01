@@ -8,6 +8,7 @@ from fastapi.responses import ORJSONResponse, RedirectResponse
 
 from auth.api import router
 from auth.dependencies import RequiresLoginError
+from timetable.api import router as timetable_router
 
 # run migrations to update database state
 alembic_args = [
@@ -20,6 +21,7 @@ alembic.config.main(argv=alembic_args)
 
 app = FastAPI(default_response_class=ORJSONResponse)
 app.include_router(router)
+app.include_router(timetable_router)
 
 
 @app.exception_handler(RequiresLoginError)
