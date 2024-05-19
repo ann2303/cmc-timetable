@@ -15,8 +15,11 @@ class Timetable:
     def load_timetable(df: pd.DataFrame) -> str:
         """Load timetable from given dataframe"""
         df_columns = set(df.columns)
-        if not df_columns == set(columns):
-            logging.error(f"Provided DataFrame must have columns: {', '.join(columns)}")
+        if not df_columns == set(Timetable.columns):
+            logging.error(f"Provided DataFrame must have columns: {', '.join(Timetable.columns)}")
+            logging.error(f"Provided DataFrame: \n{len(df_columns)}")
+            for i in df_columns:
+                logging.error(f"{i}")
         
         Timetable.timetable = df.sort_values(['day of week', 'start'])
         Timetable.timetable.set_index(['group', 'start_time', 'day_of_week'], inplace=True)

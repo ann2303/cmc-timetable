@@ -1,6 +1,7 @@
 import camelot
 import pandas as pd
 from abc import abstractmethod, ABC
+import logging
 
 
 class TableParser(ABC):
@@ -36,9 +37,17 @@ class PDFTableParser(TableParser):
     Camelot to extract tables from a PDF. Returns a list of 
     Pandas DataFrames for each extracted table.
     """
+    
+    def __init__(self, file):
+        logging.error(f"File: {file}")
+        super().__init__(file)
 
     def parse(self):
-        table = camelot.read_pdf(self.file)[0]
+        try:
+            table = camelot.read_pdf(self.file)[0]
+        except Exception as e:
+            logging.error(f"Exception: {e}")
+            raise e
         return table.df
     
         
