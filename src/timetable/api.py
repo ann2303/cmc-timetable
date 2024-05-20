@@ -78,7 +78,7 @@ async def load_timetable(request: Request, user: Annotated[User, Depends(get_cur
         with open(file_path, "wb") as f:
             f.write(read_data)
         parser = table_parser.PDFTableParser(str(file_path))
-    elif uploaded_file.filename.endswith("excel"):
+    elif uploaded_file.filename.endswith("xlsx"):
         # Load timetable from Excel file
         file_path = Path(__file__).parent / "timetable.xlsx"
         with open(file_path, "wb") as f:

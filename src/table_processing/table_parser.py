@@ -47,7 +47,9 @@ class PDFTableParser(TableParser):
 
     def parse(self):
         table = camelot.read_pdf(self.file)[0]
-        return table.df
+        result = table.df.loc[1:]
+        result.columns = table.df.loc[0]
+        return result
     
         
 class PickleParser(TableParser):

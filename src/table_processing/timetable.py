@@ -20,7 +20,7 @@ class Timetable:
             for i in df_columns:
                 logging.error(f"{i}")
         
-        Timetable.timetable = df.sort_values(['day of week', 'start'])
+        Timetable.timetable = df.sort_values(['day of week', 'start']).reset_index(drop=True)
         return Timetable.timetable.to_html()
          
     @staticmethod    
@@ -65,22 +65,5 @@ class Timetable:
         """
         
         return Timetable.timetable.to_html()
-    
-    
-    def update(new_timetable: pd.DataFrame):
-        """
-        Update the timetable with a new DataFrame.
-
-        Args:
-            new_timetable (pd.DataFrame): The new timetable to replace the existing one.
-        """
-        new_timetable.set_index(['group', 'start_time', 'day_of_week'], inplace=True)
-        
-        for index, row in new_timetable.iterrows():
-            if index in Timetable.timetable.index:
-                Timetable.timetable.loc[index] = row
-            else:
-                Timetable.timetable = Timetable.timetable.append(row)
                   
-        
         
