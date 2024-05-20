@@ -26,8 +26,12 @@ class TableParser(ABC):
         if self.table is not None:
             return self.table
         else:
-            self.table = self.parse()
-            return self.table
+            try:
+                self.table = self.parse()
+                return self.table
+            except Exception as e:
+                logging.error(f"Exception: {e}")
+                raise e
 
 
 class PDFTableParser(TableParser):
@@ -39,15 +43,10 @@ class PDFTableParser(TableParser):
     """
     
     def __init__(self, file):
-        logging.error(f"File: {file}")
         super().__init__(file)
 
     def parse(self):
-        try:
-            table = camelot.read_pdf(self.file)[0]
-        except Exception as e:
-            logging.error(f"Exception: {e}")
-            raise e
+        table = camelot.read_pdf(self.file)[0]
         return table.df
     
         

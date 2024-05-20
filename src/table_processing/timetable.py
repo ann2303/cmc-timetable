@@ -1,5 +1,4 @@
 import pandas as pd
-import re  
 from auth.models import User
 import logging
     
@@ -22,7 +21,6 @@ class Timetable:
                 logging.error(f"{i}")
         
         Timetable.timetable = df.sort_values(['day of week', 'start'])
-        Timetable.timetable.set_index(['group', 'start_time', 'day_of_week'], inplace=True)
         return Timetable.timetable.to_html()
          
     @staticmethod    

@@ -58,8 +58,6 @@ async def get_timetable(request: Request, user: Annotated[User, Depends(get_curr
         )
         
     elif user.group is not None:
-        logging.error(f"Getting timetable for student group: {user.group}")
-        logging.error(f"{Timetable.timetable}")
         return templates.TemplateResponse(
             request=request,
             name="timetable.html",
@@ -76,25 +74,22 @@ async def load_timetable(request: Request, user: Annotated[User, Depends(get_cur
     
     if uploaded_file.filename.endswith("pdf"):
         # Load timetable from PDF file
-        logging.error(f"Uploaded file PDF")
         file_path = Path(__file__).parent / "timetable.pdf"
         with open(file_path, "wb") as f:
             f.write(read_data)
         parser = table_parser.PDFTableParser(str(file_path))
-        logging.error(f"Parsed file")
-        logging.error(f"{parser.file}")
     elif uploaded_file.filename.endswith("excel"):
         # Load timetable from Excel file
         file_path = Path(__file__).parent / "timetable.xlsx"
         with open(file_path, "wb") as f:
             f.write(read_data)
         parser = table_parser.ExcelTableParser(str(file_path))
-    elif uploaded_file.filename.endswith("pickle"):
+    elif uploaded_file.filename.endswith("pkl"):
         file_path = Path(__file__).parent / "timetable.pkl"
         with open(file_path, "wb") as f:
             f.write(read_data)
         # Load timetable from Pickle file
-        parser = table_parser.PickleTableParser(str(file_path))
+        parser = table_parser.PickleParser(str(file_path))
     else:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Unsupported file format")
     return templates.TemplateResponse(
@@ -104,4 +99,20 @@ async def load_timetable(request: Request, user: Annotated[User, Depends(get_cur
             "timetable": Timetable.load_timetable(parser.get_table()),
         },
     )
+    
+@router.get("/show", status_code=status.HTTP_200_OK)
+def show_timetable(request: Request, user: Annotated[User, Depends(get_current_active_user)]):
+    """
+    Show the loaded timetable for admin.
+    """
+    
+    if user.is_admin:
+        return templates.TemplateResponse(
+            request=request,
+            name="timetable.html",
+            context={
+                "timetable": Timetable.timetable.to_html(),
+            },
+        )
+
     
