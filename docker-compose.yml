@@ -17,6 +17,7 @@ services:
       - JWT_SECRET_KEY=${JWT_SECRET_KEY}
       - ALGORITHM=${ALGORITHM}
       - ACCESS_TOKEN_EXPIRE_MINUTES=${ACCESS_TOKEN_EXPIRE_MINUTES}
+      - SUPPORT_DIR=${SUPPORT_DIR}
     develop:
       watch:
         - action: sync
