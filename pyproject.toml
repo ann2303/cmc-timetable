@@ -11,7 +11,8 @@ exclude = [
     ".git",
     "__pycache__",
     "venv",
-    "migrations"
+    "migrations",
+    "docs"
 ]
 extend-ignore = [
     "E203",

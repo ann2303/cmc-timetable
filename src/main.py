@@ -1,7 +1,7 @@
 """Service entrypoint module."""
 
-from contextlib import asynccontextmanager
 import shutil
+from contextlib import asynccontextmanager
 from urllib import parse
 
 import alembic.config
