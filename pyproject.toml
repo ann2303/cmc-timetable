@@ -1,6 +1,6 @@
 [tool.black]
 line-length=120
-target-version = ["py311"]
+target-version = ["py38"]
 
 [tool.isort]
 profile = "black"
@@ -12,7 +12,9 @@ exclude = [
     "__pycache__",
     "venv",
     "migrations",
-    "docs"
+    "docs",
+    "**/*.mo",
+    "**/*.pot"
 ]
 extend-ignore = [
     "E203",

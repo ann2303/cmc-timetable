@@ -4,6 +4,8 @@ from typing import Any
 
 from pydantic import BaseModel, EmailStr, field_validator
 
+from gettext_translate import _
+
 
 class TokenData(BaseModel):
     """JWT payload model for token fields validation."""
@@ -28,7 +30,7 @@ class User(BaseModel):
         if value is None:
             return value
         if not (101 <= value <= 630):
-            raise ValueError("group parameter must be between 101 and 630")
+            raise ValueError(_("{} parameter must be between 101 and 630").format("group"))
         return value
 
     class Config:

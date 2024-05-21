@@ -2,15 +2,14 @@ import logging
 
 import pandas as pd
 
-from auth.models import User
-
 from pretty_html_table import build_table
+from gettext_translate import _
 
 
 class Timetable:
     """Class for getting timetable and it's processing"""
 
-    columns = ["day of week", "start", "finish", "room", "subject", "teacher", "group"]
+    columns = [_("day of week"), _("start"), _("finish"), _("room"), _("subject"), _("teacher"), _("group")]
 
     timetable: pd.DataFrame = pd.DataFrame(columns=columns)
     
@@ -24,13 +23,13 @@ class Timetable:
         """Load timetable from given dataframe"""
         df_columns = set(df.columns)
         if not df_columns == set(Timetable.columns):
-            logging.error(f"Provided DataFrame must have columns: {', '.join(Timetable.columns)}")
-            logging.error(f"Provided DataFrame: \n{len(df_columns)}")
+            logging.error(_("Provided DataFrame must have columns: {}").format(', '.join(Timetable.columns)))
+            logging.error(_("Provided DataFrame: \n{}").format(len(df_columns)))
             for i in df_columns:
                 logging.error(f"{i}")
 
-        Timetable.timetable = df.sort_values(["day of week", "start"]).reset_index(drop=True)
-        return Timetable.timetable.to_html()
+        Timetable.timetable = df.sort_values([_("day of week"), _("start")]).reset_index(drop=True)
+        return Timetable.show_timetable(Timetable.timetable)
 
     @staticmethod
     def get_timetable_for_student(student_group) -> str:
@@ -44,7 +43,7 @@ class Timetable:
             str: The timetable for the specified student in html format.
         """
 
-        return Timetable.show_timetable(Timetable.timetable[Timetable.timetable["group"] == student_group])
+        return Timetable.show_timetable(Timetable.timetable[Timetable.timetable[_("group")] == student_group])
 
     @staticmethod
     def get_timetable_for_teacher(teacher_name: str) -> str:
@@ -58,7 +57,7 @@ class Timetable:
             str: The timetable for the specified student in html format.
         """
 
-        return Timetable.show_timetable(Timetable.timetable[Timetable.timetable["teacher"] == teacher_name])
+        return Timetable.show_timetable(Timetable.timetable[Timetable.timetable[_("teacher")] == teacher_name])
 
     @staticmethod
     def get_timetable_for_admin():

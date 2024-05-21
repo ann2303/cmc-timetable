@@ -4,6 +4,8 @@ from abc import ABC, abstractmethod
 import camelot
 import pandas as pd
 
+from gettext_translate import _
+
 
 class TableParser(ABC):
     """Parses tables from a file.
@@ -32,7 +34,7 @@ class TableParser(ABC):
                 self.table = self.parse()
                 return self.table
             except Exception as e:
-                logging.error(f"Exception: {e}")
+                logging.error(_("Exception: {}").format(e))
                 raise e
 
 
@@ -73,7 +75,7 @@ class ExcelTableParser(TableParser):
         result = excel_file.parse()
         if isinstance(result, dict):
             if self.sheet_name is None:
-                raise ValueError("Excel file contains multiple sheets. Please specify the sheet name.")
+                raise ValueError(_("Excel file contains multiple sheets. Please specify the sheet name."))
             else:
                 return result[self.sheet_name]
         return result

@@ -4,25 +4,26 @@ from pathlib import Path
 
 from pydantic import Field, PositiveInt
 from pydantic_settings import BaseSettings
+from gettext_translate import _
 
 
 class Settings(BaseSettings):
     """Class for all server environment variables."""
 
-    DB_HOST: str = Field("postgres", description="Database connection host name")
-    DB_PORT: PositiveInt = Field(5432, description="Database connection port", ge=5000, le=6000)
-    DB_NAME: str = Field(..., description="Name of the database to interact with")
-    DB_PASSWORD: str = Field(..., description="Password for database connection")
-    DB_USER: str = Field(..., description="User name to make database operations")
+    DB_HOST: str = Field("postgres", description=_("Database connection host name"))
+    DB_PORT: PositiveInt = Field(5432, description=_("Database connection port"), ge=5000, le=6000)
+    DB_NAME: str = Field(..., description=_("Name of the database to interact with"))
+    DB_PASSWORD: str = Field(..., description=_("Password for database connection"))
+    DB_USER: str = Field(..., description=_("User name to make database operations"))
 
-    JWT_SECRET_KEY: str = Field(..., description="Secret key to generate JWT signature")
-    ALGORITHM: str = Field(..., description="Crypto algorithm to generate JWT signature")
+    JWT_SECRET_KEY: str = Field(..., description=_("Secret key to generate JWT signature"))
+    ALGORITHM: str = Field(..., description=_("Crypto algorithm to generate JWT signature"))
     ACCESS_TOKEN_EXPIRE_MINUTES: PositiveInt = Field(
-        ..., description="Time access tken is valid after creation", le=60, ge=5
+        ..., description=_("Time access tken is valid after creation"), le=60, ge=5
     )
     SUPPORT_DIR: Path = Field(
         Path(__file__) / "support_files",
-        description="Path to the support directory where additional files with timetable will be saved",
+        description=_("Path to the support directory where additional files with timetable will be saved"),
     )
 
     @property

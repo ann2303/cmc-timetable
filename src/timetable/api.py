@@ -10,6 +10,7 @@ from fastapi.templating import Jinja2Templates
 
 from auth.dependencies import get_current_active_user
 from auth.models import User
+from gettext_translate import _
 from settings import settings
 from table_processing import table_parser
 from table_processing.timetable import Timetable
@@ -60,7 +61,7 @@ async def load_timetable(
     request: Request, user: Annotated[User, Depends(get_current_active_user)], uploaded_file: UploadFile
 ):
     if not user.is_admin:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Only admin users can load timetable")
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail=_("Only admin users can load timetable"))
     read_data = await uploaded_file.read()
 
     if uploaded_file.filename.endswith("pdf"):
@@ -79,7 +80,7 @@ async def load_timetable(
         await save_read_timetable(read_data, file_path)
         parser = table_parser.PickleParser(str(file_path))
     else:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Unsupported file format")
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=_("Unsupported file format"))
     return templates.TemplateResponse(
         request=request, name="timetable.html", context={"timetable": Timetable.load_timetable(parser.get_table())}
     )
@@ -92,5 +93,5 @@ def show_timetable(request: Request, user: Annotated[User, Depends(get_current_a
     """
 
     if not user.is_admin:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Only admin users can load timetable")
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail=_("Only admin users can load timetable"))
     return templates.TemplateResponse(request=request, name="load_timetable.html")

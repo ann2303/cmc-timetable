@@ -12,6 +12,8 @@ from db.dao import AsyncSession
 from db.user.dao import UserDAO
 from settings import settings
 
+from gettext_translate import _
+
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
@@ -73,5 +75,5 @@ async def get_current_active_user(
 ):
     """Return current active user."""
     if current_user.disabled:
-        raise HTTPException(status_code=400, detail="Inactive user")
+        raise HTTPException(status_code=400, detail=_("Inactive user"))
     return current_user

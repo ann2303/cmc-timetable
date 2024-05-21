@@ -5,6 +5,8 @@ from sqlalchemy.orm import Mapped, mapped_column
 
 from db.base import Base
 
+from gettext_translate import _
+
 
 class UserORM(Base):
     """User table mapper."""
