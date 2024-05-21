@@ -39,3 +39,9 @@ starlette==0.37.2
 tomli==2.0.1
 typing_extensions==4.11.0
 uvicorn==0.29.0
+opencv-python==4.9.0.80
+camelot-py[base]==0.9.0
+PyPDF2==2.12.1
+pandas==2.0.3
+python-multipart==0.0.9
+aiofiles==0.8.0

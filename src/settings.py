@@ -1,5 +1,7 @@
 """Module with api environment settings definition."""
 
+from pathlib import Path
+
 from pydantic import Field, PositiveInt
 from pydantic_settings import BaseSettings
 
@@ -18,27 +20,23 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: PositiveInt = Field(
         ..., description="Time access tken is valid after creation", le=60, ge=5
     )
+    SUPPORT_DIR: Path = Field(
+        Path(__file__) / "support_files",
+        description="Path to the support directory where additional files with timetable will be saved",
+    )
 
     @property
     def database_dsn(self) -> str:
         """Return postgresql dsn with asynchronous driver asyncpg."""
         return "postgresql+asyncpg://{user}:{password}@{host}:{port}/{db}".format(
-            db=self.DB_NAME,
-            user=self.DB_USER,
-            password=self.DB_PASSWORD,
-            host=self.DB_HOST,
-            port=self.DB_PORT,
+            db=self.DB_NAME, user=self.DB_USER, password=self.DB_PASSWORD, host=self.DB_HOST, port=self.DB_PORT
         )
 
     @property
     def sync_database_dsn(self) -> str:
         """Return postgresql dsn with synchronous driver psycopg2."""
         return "postgresql+psycopg2://{user}:{password}@{host}:{port}/{db}".format(
-            db=self.DB_NAME,
-            user=self.DB_USER,
-            password=self.DB_PASSWORD,
-            host=self.DB_HOST,
-            port=self.DB_PORT,
+            db=self.DB_NAME, user=self.DB_USER, password=self.DB_PASSWORD, host=self.DB_HOST, port=self.DB_PORT
         )
 
 
