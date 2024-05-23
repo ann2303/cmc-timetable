@@ -31,11 +31,16 @@
 `Страница загрузки таблицы <http://localhost:8000/timetable/load>`_
 
 .. image:: _static/upload_table_page.png
-   :align: center
+
+Далее после того, как вы выбрали файл с расписанием занятий, необходимо
+нажать на кнопку "Загрузить файл".
+
 .. image:: _static/upload_table_form.png
-   :align: center
+   
 
 После успешной загрузки таблицы, вас перенаправит на просмотр новой таблицы.
+
+.. image:: _static/upload_table_success.png
 
 Поддерживаемые форматы таблиц
 -----------------
