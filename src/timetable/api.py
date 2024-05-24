@@ -2,6 +2,8 @@
 
 from typing import Annotated
 
+import logging
+
 import aiofiles
 from fastapi import APIRouter, Depends, HTTPException, Request, UploadFile, status
 from fastapi.templating import Jinja2Templates
@@ -24,22 +26,26 @@ async def get_timetable(request: Request, user: Annotated[User, Depends(get_curr
     Args:
         user (User): The current authenticated user.
     """
+    try:
+        if user.is_admin:
+            return templates.TemplateResponse(
+                request=request, name="timetable.html", context={"timetable": Timetable.get_timetable_for_admin()}
+            )
+        elif user.group is None:
+            return templates.TemplateResponse(
+                request=request,
+                name="timetable.html",
+                context={"timetable": Timetable.get_timetable_for_teacher(user.username)},
+            )
+    except Exception as e:
+        logging.error(e)
 
-    if user.is_admin:
+    try:
         return templates.TemplateResponse(
-            request=request, name="timetable.html", context={"timetable": Timetable.timetable.to_html()}
-        )
-    elif user.group is None:
-
-        return templates.TemplateResponse(
-            request=request,
-            name="timetable.html",
-            context={"timetable": Timetable.get_timetable_for_teacher(user.username)},
-        )
-
-    return templates.TemplateResponse(
         request=request, name="timetable.html", context={"timetable": Timetable.get_timetable_for_student(user.group)}
     )
+    except Exception as exc:
+        logging.error(exc)
 
 
 async def save_read_timetable(read_data: bytes, file_path: str):

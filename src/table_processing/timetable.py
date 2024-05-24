@@ -4,6 +4,8 @@ import pandas as pd
 
 from auth.models import User
 
+from pretty_html_table import build_table
+
 
 class Timetable:
     """Class for getting timetable and it's processing"""
@@ -11,6 +13,11 @@ class Timetable:
     columns = ["day of week", "start", "finish", "room", "subject", "teacher", "group"]
 
     timetable: pd.DataFrame = pd.DataFrame(columns=columns)
+    
+    @staticmethod
+    def show_timetable(df: pd.DataFrame) -> str:
+        """Show timetable"""
+        return build_table(df, 'blue_light', index=False)
 
     @staticmethod
     def load_timetable(df: pd.DataFrame) -> str:
@@ -37,7 +44,7 @@ class Timetable:
             str: The timetable for the specified student in html format.
         """
 
-        return Timetable.timetable[Timetable.timetable["group"] == student_group].to_html()
+        return Timetable.show_timetable(Timetable.timetable[Timetable.timetable["group"] == student_group])
 
     @staticmethod
     def get_timetable_for_teacher(teacher_name: str) -> str:
@@ -51,10 +58,10 @@ class Timetable:
             str: The timetable for the specified student in html format.
         """
 
-        return Timetable.timetable[Timetable.timetable["teacher"] == teacher_name].to_html()
+        return Timetable.show_timetable(Timetable.timetable[Timetable.timetable["teacher"] == teacher_name])
 
     @staticmethod
-    def get_timetable_for_admin(teacher: User):
+    def get_timetable_for_admin():
         """
         Get timetable for a specific teacher.
 
@@ -65,4 +72,4 @@ class Timetable:
             pd.DataFrame: The timetable for the specified teacher.
         """
 
-        return Timetable.timetable.to_html()
+        return Timetable.show_timetable(Timetable.timetable)
