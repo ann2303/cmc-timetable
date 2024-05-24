@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -18,27 +18,26 @@
             width: 100%;
         }
 
-        .home {
-            background-color: #0dd6c6;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-        }
-
         button:hover {
             opacity: 0.8;
         }
 
+        .cancelbtn {
+            width: auto;
+            padding: 10px 18px;
+            background-color: #f44336;
+        }
+
     </style>
 </head>
-<h2>Timetable</h2>
+<h2>Main page</h2>
 
 <body>
-    {{ timetable | safe }}
-    <button class="home" onclick="window.location.href='/'">Go to Main Page</button>
+    <button onclick="window.location.href='/timetable'">Show timetable</button>
+    {% if admin %}
+    <button onclick="window.location.href='/timetable/load'">Load timetable</button>
+    {% endif %}
+    <button class="cancelbtn" onclick="window.location.href='/auth/logout'">Logout</button>
 </body>
 
 </html>

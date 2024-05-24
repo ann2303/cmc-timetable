@@ -16,29 +16,41 @@
             padding: 20px;
         }
 
-        .file-upload-btn {
-            width: 100%;
-            margin: 0;
-            color: #fff;
-            background: #1FB264;
+        .file-btn {
+            background-color: #04AA6D;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
             border: none;
-            padding: 10px;
-            border-radius: 4px;
-            border-bottom: 4px solid #15824B;
-            transition: all .2s ease;
-            outline: none;
-            text-transform: uppercase;
-            font-weight: 700;
-        }
-
-        .file-upload-btn:hover {
-            background: #1AA059;
-            color: #ffffff;
-            transition: all .2s ease;
             cursor: pointer;
+            width: 100%;
         }
 
-        .file-upload-btn:active {
+        .home {
+            background-color: #0dd6c6;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .cancelbtn {
+            background-color: #b72508;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .cancelbtn:hover {
+            opacity: 0.8;
+        }
+
+        .cancelbtn:active {
             border: 0;
             transition: all .2s ease;
         }
@@ -102,7 +114,7 @@
         });
     </script>
     <div class="file-upload">
-        <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add
+        <button class="file-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add
             File</button>
 
         <div class="image-upload-wrap">
@@ -114,9 +126,8 @@
 
         <div class="file-upload-content">
             <div class="image-title-wrap">
-                <button type="button" onclick="removeUpload()" class="remove-image">Remove <span
-                        class="image-title">Uploaded File</span></button>
-                <button type="button" onclick="loadFile()">Load File</button>
+
+                <button class="file-btn" onclick="loadFile()">Load File</button>
 
                 <script>
                     function loadFile() {
@@ -141,6 +152,12 @@
                         });
                     }
                 </script>
+
+                <button class="cancelbtn" onclick="removeUpload()" class="remove-image">Remove <span
+                        class="image-title">Uploaded
+                        File</span></button>
+
+                <button class="home" onclick="window.location.href='/'">Go to Main Page</button>
 
             </div>
         </div>

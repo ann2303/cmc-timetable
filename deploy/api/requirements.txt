@@ -45,3 +45,4 @@ PyPDF2==2.12.1
 pandas==2.0.3
 python-multipart==0.0.9
 aiofiles==0.8.0
+pretty-html-table==0.9.16
