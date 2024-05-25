@@ -30,20 +30,20 @@ async def get_timetable(request: Request, user: Annotated[User, Depends(get_curr
     try:
         if user.is_admin:
             return templates.TemplateResponse(
-                request=request, name="timetable.html", context={"timetable": Timetable.get_timetable_for_admin()}
+                request=request, name="timetable.html", context={"timetable": Timetable.get_timetable_for_admin(), "gettext": _}
             )
         elif user.group is None:
             return templates.TemplateResponse(
                 request=request,
                 name="timetable.html",
-                context={"timetable": Timetable.get_timetable_for_teacher(user.username)},
+                context={"timetable": Timetable.get_timetable_for_teacher(user.username), "gettext": _},
             )
     except Exception as e:
         logging.error(e)
 
     try:
         return templates.TemplateResponse(
-        request=request, name="timetable.html", context={"timetable": Timetable.get_timetable_for_student(user.group)}
+        request=request, name="timetable.html", context={"timetable": Timetable.get_timetable_for_student(user.group), "gettext": _}
     )
     except Exception as exc:
         logging.error(exc)
@@ -82,7 +82,7 @@ async def load_timetable(
     else:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=_("Unsupported file format"))
     return templates.TemplateResponse(
-        request=request, name="timetable.html", context={"timetable": Timetable.load_timetable(parser.get_table())}
+        request=request, name="timetable.html", context={"timetable": Timetable.load_timetable(parser.get_table()), "gettext": _}
     )
 
 
@@ -94,4 +94,4 @@ def show_timetable(request: Request, user: Annotated[User, Depends(get_current_a
 
     if not user.is_admin:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail=_("Only admin users can load timetable"))
-    return templates.TemplateResponse(request=request, name="load_timetable.html")
+    return templates.TemplateResponse(request=request, context={"gettext": _}, name="load_timetable.html")

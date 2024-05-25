@@ -28,6 +28,10 @@ from fastapi import (
     Response,
     status,
 )
+
+import locale
+
+from gettext_translate import _
 from fastapi.templating import Jinja2Templates
 
 
@@ -72,8 +76,19 @@ async def health():
 @app.get("/", status_code=status.HTTP_200_OK)
 async def index(request: Request, user: Annotated[User, Depends(get_current_active_user)]):
     """Show index page."""
+    return templates.TemplateResponse(request=request, context={"admin": user.is_admin, "gettext": _}, name="index.html")
+
+languages = {
+    "ru": ("ru_RU", "UTF-8"),
+    "en": ("en_US", "UTF-8")
+}
+
+@app.get("/choose_lang", status_code=status.HTTP_200_OK)
+async def choose_lang(request: Request, user: Annotated[User, Depends(get_current_active_user)], lang: str):
+    """Change locale for language."""
+
     try:
-        return templates.TemplateResponse(request=request, context={"admin": user.is_admin}, name="index.html")
+        locale.setlocale(locale.LC_ALL, languages[lang])
+        return templates.TemplateResponse(request=request,  context={"admin": user.is_admin, "gettext": _}, name="index.html")
     except Exception as e:
         logging.error(e)
-    # return templates.TemplateResponse(request=request, context={"admin": user.is_admin}, name="index.html")

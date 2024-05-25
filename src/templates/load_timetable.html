@@ -114,20 +114,19 @@
         });
     </script>
     <div class="file-upload">
-        <button class="file-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add
-            File</button>
+        <button class="file-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">{{ gettext("Add File") }}</button>
 
         <div class="image-upload-wrap">
             <input class="file-upload-input" type='file' accept=".pdf, .xlsx, .pkl" onchange="readURL(this);" />
             <div class="drag-text">
-                <h3>Drag and drop a file or select add file</h3>
+                <h3>{{ gettext("Drag and drop a file or select add file") }}</h3>
             </div>
         </div>
 
         <div class="file-upload-content">
             <div class="image-title-wrap">
 
-                <button class="file-btn" onclick="loadFile()">Load File</button>
+                <button class="file-btn" onclick="loadFile()">{{ gettext("Load File") }}</button>
 
                 <script>
                     function loadFile() {
@@ -153,11 +152,11 @@
                     }
                 </script>
 
-                <button class="cancelbtn" onclick="removeUpload()" class="remove-image">Remove <span
+                <button class="cancelbtn" onclick="removeUpload()" class="remove-image">{{ gettext("Remove ") }}<span
                         class="image-title">Uploaded
                         File</span></button>
 
-                <button class="home" onclick="window.location.href='/'">Go to Main Page</button>
+                <button class="home" onclick="window.location.href='/'">{{ gettext("Go to Main Page") }}</button>
 
             </div>
         </div>

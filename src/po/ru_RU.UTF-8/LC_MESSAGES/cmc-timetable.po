@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-22 02:50+0300\n"
-"PO-Revision-Date: 2024-05-22 02:51+0300\n"
+"POT-Creation-Date: 2024-05-25 22:18+0300\n"
+"PO-Revision-Date: 2024-05-25 22:18+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru_RU\n"
 "Language-Team: ru_RU <LL@li.org>\n"
@@ -19,107 +19,164 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.14.0\n"
 
-#: settings.py:13
-msgid "Database connection host name"
-msgstr "Имя узла подключения к базе данных"
+#: src/main.py:94 src/templates/load_timetable.html:155
+msgid "Remove "
+msgstr "Удалить "
 
-#: settings.py:14
+#: src/settings.py:13
+msgid "Database connection host name"
+msgstr "Имя хоста подключения к базе данных"
+
+#: src/settings.py:14
 msgid "Database connection port"
 msgstr "Порт подключения к базе данных"
 
-#: settings.py:15
+#: src/settings.py:15
 msgid "Name of the database to interact with"
-msgstr "Название базы данных для взаимодействия"
+msgstr "Имя базы данных для взаимодействия."
 
-#: settings.py:16
+#: src/settings.py:16
 msgid "Password for database connection"
 msgstr "Пароль для подключения к базе данных"
 
-#: settings.py:17
+#: src/settings.py:17
 msgid "User name to make database operations"
-msgstr "Имя пользователя для выполнения действий над базой"
+msgstr "Имя пользователя для выполнения операций с базой данных."
 
-#: settings.py:19
+#: src/settings.py:19
 msgid "Secret key to generate JWT signature"
-msgstr "Секретный ключ для генерации подписи JWT"
+msgstr "Секретный ключ для генерации подписи JWT."
 
-#: settings.py:20
+#: src/settings.py:20
 msgid "Crypto algorithm to generate JWT signature"
-msgstr "Криптографический алгоритм для генерации подписи JWT"
+msgstr "Криптоалгоритм для генерации подписи JWT"
 
-#: settings.py:22
+#: src/settings.py:22
 msgid "Time access tken is valid after creation"
-msgstr "Время действия токена после его создания"
+msgstr "Маркер доступа по времени действителен после создания."
 
-#: settings.py:26
+#: src/settings.py:26
 msgid ""
 "Path to the support directory where additional files with timetable will "
 "be saved"
-msgstr "Путь до директории, где будут сохранены дополнительные файлы с расписанием"
+msgstr "Путь к каталогу поддержки, в котором будут сохранены дополнительные файлы с расписанием."
 
-#: auth/api.py:49
+#: src/auth/api.py:54
 msgid "User with username {} and password {} does not exist."
-msgstr "Пользователь с именем {} и паролем {} не существует."
+msgstr "Пользователь с именем пользователя {} и паролем {} не существует."
 
-#: auth/dependencies.py:76
+#: src/auth/dependencies.py:78
 msgid "Inactive user"
 msgstr "Неактивный пользователь"
 
-#: auth/models.py:33
+#: src/auth/models.py:33
 msgid "{} parameter must be between 101 and 630"
-msgstr "{} параметр должен находиться между 101 и 630"
+msgstr ""
 
-#: table_processing/table_parser.py:37
+#: src/table_processing/table_parser.py:37
 msgid "Exception: {}"
 msgstr "Исключение: {}"
 
-#: table_processing/table_parser.py:78
+#: src/table_processing/table_parser.py:78
 msgid "Excel file contains multiple sheets. Please specify the sheet name."
-msgstr "Excel файл содержит множество листов. Пожалуйста, укажите название листа."
+msgstr "Файл Excel содержит несколько листов. "
 
-#: table_processing/timetable.py:13 table_processing/timetable.py:27
+#: src/table_processing/timetable.py:12 src/table_processing/timetable.py:31
 msgid "day of week"
 msgstr "день недели"
 
-#: table_processing/timetable.py:13 table_processing/timetable.py:27
+#: src/table_processing/timetable.py:12 src/table_processing/timetable.py:31
 msgid "start"
 msgstr "начало"
 
-#: table_processing/timetable.py:13
+#: src/table_processing/timetable.py:12
 msgid "finish"
-msgstr "конец"
+msgstr "закончить"
 
-#: table_processing/timetable.py:13
+#: src/table_processing/timetable.py:12
 msgid "room"
-msgstr "кабинет"
+msgstr "комната"
 
-#: table_processing/timetable.py:13
+#: src/table_processing/timetable.py:12
 msgid "subject"
-msgstr "предмет"
+msgstr "тема"
 
-#: table_processing/timetable.py:13 table_processing/timetable.py:56
+#: src/table_processing/timetable.py:12 src/table_processing/timetable.py:60
 msgid "teacher"
-msgstr "преподаватель"
+msgstr "учитель"
 
-#: table_processing/timetable.py:13 table_processing/timetable.py:42
+#: src/table_processing/timetable.py:12 src/table_processing/timetable.py:46
 msgid "group"
 msgstr "группа"
 
-#: table_processing/timetable.py:22
+#: src/table_processing/timetable.py:26
 msgid "Provided DataFrame must have columns: {}"
-msgstr "Предоставленный DataFrame должен содержать столбцы: {}"
+msgstr "При условии, что DataFrame должен иметь столбцы: {}"
 
-#: table_processing/timetable.py:23
+#: src/table_processing/timetable.py:27
 msgid ""
 "Provided DataFrame: \n"
 "{}"
-msgstr "Предоставленный DataFrame: \n {}"
+msgstr "Предоставленный фрейм данных: \n{}"
 
-#: timetable/api.py:58 timetable/api.py:90
+#: src/templates/index.html:32
+msgid "Main page"
+msgstr "Главная страница"
+
+#: src/templates/index.html:56
+msgid "Show timetable"
+msgstr "Показать расписание"
+
+#: src/templates/index.html:58
+msgid "Load timetable"
+msgstr "Загрузить расписание"
+
+#: src/templates/index.html:60
+msgid "Logout"
+msgstr "Выход"
+
+#: src/templates/load_timetable.html:117
+msgid "Add File"
+msgstr "Добавить файл"
+
+#: src/templates/load_timetable.html:122
+msgid "Drag and drop a file or select add file"
+msgstr "Перетащите файл или выберите «Добавить файл»."
+
+#: src/templates/load_timetable.html:129
+msgid "Load File"
+msgstr "Загрузить файл"
+
+#: src/templates/load_timetable.html:159 src/templates/timetable.html:41
+msgid "Go to Main Page"
+msgstr "Перейти на главную страницу"
+
+#: src/templates/login.html:71
+msgid "Authentication"
+msgstr "Аутентификация"
+
+#: src/templates/login.html:76
+msgid "Username"
+msgstr "Имя пользователя"
+
+#: src/templates/login.html:79
+msgid "Password"
+msgstr "Пароль"
+
+#: src/templates/login.html:82
+msgid "Login"
+msgstr "Войти"
+
+#: src/templates/timetable.html:37
+msgid "Timetable"
+msgstr "Расписание"
+
+#: src/timetable/api.py:64 src/timetable/api.py:96
 msgid "Only admin users can load timetable"
-msgstr "Только администратор может загружать расписание"
+msgstr "Только администраторы могут загружать расписание."
 
-#: timetable/api.py:77
+#: src/timetable/api.py:83
 msgid "Unsupported file format"
-msgstr "Неподдерживаемый формат файла"
+msgstr "Неподдерживаемый формат файла."
+
 

@@ -23,6 +23,10 @@ from auth.dependencies import (
 )
 from auth.models import User
 from settings import settings
+import logging
+from gettext_translate import _
+
+
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 templates = Jinja2Templates(directory="templates")
@@ -31,7 +35,8 @@ templates = Jinja2Templates(directory="templates")
 @router.get("/login/", status_code=status.HTTP_200_OK)
 async def login_page(request: Request):
     """Show log in page."""
-    return templates.TemplateResponse(request=request, name="login.html")
+    return templates.TemplateResponse(request=request, context={"gettext": _}, name="login.html")
+
 
 
 @router.post("/login/")

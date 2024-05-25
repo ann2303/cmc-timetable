@@ -28,16 +28,36 @@
             background-color: #f44336;
         }
 
+
+.en {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #08254a;
+
+}
+
+.ru {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #08254a;
+}
+
+
     </style>
 </head>
-<h2>Main page</h2>
+<h2>{{ gettext("Main page") }}</h2>
 
 <body>
-    <button onclick="window.location.href='/timetable'">Show timetable</button>
+
+    <button onclick="window.location.href='/choose_lang?lang=en'" class="en">English</a>
+    <button onclick="window.location.href='/choose_lang?lang=ru'" class="ru">Русский</a>
+
+
+    <button onclick="window.location.href='/timetable'">{{ gettext("Show timetable") }}</button>
     {% if admin %}
-    <button onclick="window.location.href='/timetable/load'">Load timetable</button>
+    <button onclick="window.location.href='/timetable/load'">{{ gettext("Load timetable") }}</button>
     {% endif %}
-    <button class="cancelbtn" onclick="window.location.href='/auth/logout'">Logout</button>
+    <button class="cancelbtn" onclick="window.location.href='/auth/logout'">{{ gettext("Logout") }}</button>
 </body>
 
 </html>

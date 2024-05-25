@@ -9,13 +9,14 @@ from gettext_translate import _
 class Timetable:
     """Class for getting timetable and it's processing"""
 
-    columns = [_("day of week"), _("start"), _("finish"), _("room"), _("subject"), _("teacher"), _("group")]
+    columns = ["day of week", "start", "finish", "room", "subject", "teacher", "group"]
 
     timetable: pd.DataFrame = pd.DataFrame(columns=columns)
     
     @staticmethod
     def show_timetable(df: pd.DataFrame) -> str:
         """Show timetable"""
+        df.columns = [_("day of week"), _("start"), _("finish"), _("room"), _("subject"), _("teacher"), _("group")]
         return build_table(df, 'blue_light', index=False)
 
     @staticmethod
@@ -28,7 +29,7 @@ class Timetable:
             for i in df_columns:
                 logging.error(f"{i}")
 
-        Timetable.timetable = df.sort_values([_("day of week"), _("start")]).reset_index(drop=True)
+        Timetable.timetable = df.sort_values(["day of week", "start"]).reset_index(drop=True)
         return Timetable.show_timetable(Timetable.timetable)
 
     @staticmethod
@@ -43,7 +44,7 @@ class Timetable:
             str: The timetable for the specified student in html format.
         """
 
-        return Timetable.show_timetable(Timetable.timetable[Timetable.timetable[_("group")] == student_group])
+        return Timetable.show_timetable(Timetable.timetable[Timetable.timetable["group"] == student_group])
 
     @staticmethod
     def get_timetable_for_teacher(teacher_name: str) -> str:
