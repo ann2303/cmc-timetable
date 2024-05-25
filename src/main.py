@@ -1,39 +1,23 @@
 """Service entrypoint module."""
 
+import locale
+import logging
 import shutil
 from contextlib import asynccontextmanager
+from typing import Annotated
 from urllib import parse
 
 import alembic.config
-from fastapi import FastAPI, Request, status
+from fastapi import Depends, FastAPI, Request, status
 from fastapi.responses import ORJSONResponse, RedirectResponse
-
-from auth.api import router
-from auth.dependencies import RequiresLoginError
-from settings import settings
-from timetable.api import router as timetable_router
-
-import logging
-
-from auth.dependencies import get_current_active_user
-from auth.models import User
-from typing import Annotated
-from fastapi import (
-    APIRouter,
-    Depends,
-    Form,
-    HTTPException,
-    Query,
-    Request,
-    Response,
-    status,
-)
-
-import locale
-
-from gettext_translate import _
 from fastapi.templating import Jinja2Templates
 
+from auth.api import router
+from auth.dependencies import RequiresLoginError, get_current_active_user
+from auth.models import User
+from gettext_translate import _
+from settings import settings
+from timetable.api import router as timetable_router
 
 # run migrations to update database state
 alembic_args = ["--raiseerr", "upgrade", "head"]
@@ -76,12 +60,13 @@ async def health():
 @app.get("/", status_code=status.HTTP_200_OK)
 async def index(request: Request, user: Annotated[User, Depends(get_current_active_user)]):
     """Show index page."""
-    return templates.TemplateResponse(request=request, context={"admin": user.is_admin, "gettext": _}, name="index.html")
+    return templates.TemplateResponse(
+        request=request, context={"admin": user.is_admin, "gettext": _}, name="index.html"
+    )
 
-languages = {
-    "ru": ("ru_RU", "UTF-8"),
-    "en": ("en_US", "UTF-8")
-}
+
+languages = {"ru": ("ru_RU", "UTF-8"), "en": ("en_US", "UTF-8")}
+
 
 @app.get("/choose_lang", status_code=status.HTTP_200_OK)
 async def choose_lang(request: Request, user: Annotated[User, Depends(get_current_active_user)], lang: str):
@@ -89,6 +74,8 @@ async def choose_lang(request: Request, user: Annotated[User, Depends(get_curren
 
     try:
         locale.setlocale(locale.LC_ALL, languages[lang])
-        return templates.TemplateResponse(request=request,  context={"admin": user.is_admin, "gettext": _}, name="index.html")
+        return templates.TemplateResponse(
+            request=request, context={"admin": user.is_admin, "gettext": _}, name="index.html"
+        )
     except Exception as e:
         logging.error(e)

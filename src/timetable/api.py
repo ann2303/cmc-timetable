@@ -1,8 +1,7 @@
 """Module with timetable handlers."""
 
-from typing import Annotated
-
 import logging
+from typing import Annotated
 
 import aiofiles
 from fastapi import APIRouter, Depends, HTTPException, Request, UploadFile, status
@@ -30,7 +29,9 @@ async def get_timetable(request: Request, user: Annotated[User, Depends(get_curr
     try:
         if user.is_admin:
             return templates.TemplateResponse(
-                request=request, name="timetable.html", context={"timetable": Timetable.get_timetable_for_admin(), "gettext": _}
+                request=request,
+                name="timetable.html",
+                context={"timetable": Timetable.get_timetable_for_admin(), "gettext": _},
             )
         elif user.group is None:
             return templates.TemplateResponse(
@@ -43,8 +44,10 @@ async def get_timetable(request: Request, user: Annotated[User, Depends(get_curr
 
     try:
         return templates.TemplateResponse(
-        request=request, name="timetable.html", context={"timetable": Timetable.get_timetable_for_student(user.group), "gettext": _}
-    )
+            request=request,
+            name="timetable.html",
+            context={"timetable": Timetable.get_timetable_for_student(user.group), "gettext": _},
+        )
     except Exception as exc:
         logging.error(exc)
 
@@ -82,7 +85,9 @@ async def load_timetable(
     else:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=_("Unsupported file format"))
     return templates.TemplateResponse(
-        request=request, name="timetable.html", context={"timetable": Timetable.load_timetable(parser.get_table()), "gettext": _}
+        request=request,
+        name="timetable.html",
+        context={"timetable": Timetable.load_timetable(parser.get_table()), "gettext": _},
     )
 
 

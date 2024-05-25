@@ -10,9 +10,8 @@ from passlib.context import CryptContext
 from auth.models import TokenData, User, UserInDB
 from db.dao import AsyncSession
 from db.user.dao import UserDAO
-from settings import settings
-
 from gettext_translate import _
+from settings import settings
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -70,9 +69,7 @@ async def get_current_user(api_token: Annotated[str | None, Cookie()] = None):
     return User.model_validate(user)
 
 
-async def get_current_active_user(
-    current_user: Annotated[User, Depends(get_current_user)],
-):
+async def get_current_active_user(current_user: Annotated[User, Depends(get_current_user)],):
     """Return current active user."""
     if current_user.disabled:
         raise HTTPException(status_code=400, detail=_("Inactive user"))

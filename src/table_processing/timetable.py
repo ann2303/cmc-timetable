@@ -1,8 +1,8 @@
 import logging
 
 import pandas as pd
-
 from pretty_html_table import build_table
+
 from gettext_translate import _
 
 
@@ -12,19 +12,19 @@ class Timetable:
     columns = ["day of week", "start", "finish", "room", "subject", "teacher", "group"]
 
     timetable: pd.DataFrame = pd.DataFrame(columns=columns)
-    
+
     @staticmethod
     def show_timetable(df: pd.DataFrame) -> str:
         """Show timetable"""
         df.columns = [_("day of week"), _("start"), _("finish"), _("room"), _("subject"), _("teacher"), _("group")]
-        return build_table(df, 'blue_light', index=False)
+        return build_table(df, "blue_light", index=False)
 
     @staticmethod
     def load_timetable(df: pd.DataFrame) -> str:
         """Load timetable from given dataframe"""
         df_columns = set(df.columns)
         if not df_columns == set(Timetable.columns):
-            logging.error(_("Provided DataFrame must have columns: {}").format(', '.join(Timetable.columns)))
+            logging.error(_("Provided DataFrame must have columns: {}").format(", ".join(Timetable.columns)))
             logging.error(_("Provided DataFrame: \n{}").format(len(df_columns)))
             for i in df_columns:
                 logging.error(f"{i}")

@@ -57,5 +57,5 @@ html_theme = "alabaster"
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
 
-locale_dirs = ['locale/']
+locale_dirs = ["locale/"]
 gettext_compact = False
