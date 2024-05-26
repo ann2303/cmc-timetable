@@ -52,7 +52,7 @@ class PDFTableParser(TableParser):
     def parse(self):
         table = camelot.read_pdf(self.file)[0]
         result = table.df.loc[1:]
-        result.columns = table.df.loc[0]
+        result.columns = table.df.iloc[0].tolist()
         return result
 
 
