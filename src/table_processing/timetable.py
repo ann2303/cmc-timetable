@@ -67,7 +67,7 @@ class Timetable:
         Returns:
             str: The timetable for the specified student in html format.
         """
-        return Timetable.show_timetable(Timetable.timetable[Timetable.timetable[_("teacher")] == teacher_name])
+        return Timetable.show_timetable(Timetable.timetable[Timetable.timetable["teacher"] == teacher_name])
 
     @staticmethod
     def get_timetable_for_admin():

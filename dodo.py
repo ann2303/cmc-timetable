@@ -75,11 +75,11 @@ def task_mo():
     }
 
 def task_translate_docs_update():
-    return {"actions": ["cd docs && make gettext && sphinx-intl update -p _build/gettext -l en && cd -"]}
+    return {"actions": ["cd docs && export LC_ALL=C && make gettext && sphinx-intl update -p _build/gettext -l en && cd -"]}
 
 
 def task_translate_docs_compile():
-    return {"actions": ["cd docs && make -e SPHINXOPTS=\"-D language='en'\" html && cd -"]}
+    return {"actions": ["cd docs && export LC_ALL=C && make -e SPHINXOPTS=\"-D language='en'\" html && cd -"]}
 
 def task_translate_update():
     return {"actions": None, "task_dep": ["pot", "po"]}
@@ -90,7 +90,7 @@ def task_run_test():
 
 
 def task_create_deployment():
-    return {"actions": ["docker compose down", "docker compose up --build -d"], "task_dep": ["mo"]}
+    return {"actions": ["docker compose down", "docker compose up --build"], "task_dep": ["mo"]}
 
 
 def task_delete_deployment():
