@@ -16,4 +16,4 @@ RUN update-locale
 # Add metadata to the image to describe that the container is listening on port 8000
 EXPOSE 8000
 
-CMD uvicorn main:app --host 0.0.0.0 --reload --workers 1
+CMD ["uvicorn",  "main:app",  "--host", "0.0.0.0",  "--reload",  "--workers", "1"]
