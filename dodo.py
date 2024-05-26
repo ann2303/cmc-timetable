@@ -84,9 +84,16 @@ def task_translate_docs_compile():
 def task_translate_update():
     return {"actions": None, "task_dep": ["pot", "po"]}
 
+def task_install_test_deps():
+    return {"actions": ["pip install -r tests/requirements.txt"]}
 
 def task_run_test():
-    return {"actions": ["cd tests && ./run_tests.sh > report.txt && cd -"]} 
+    return {"actions": ["cd tests && ./run_tests.sh > report.txt && cd -"],
+            "task_dep": ["install_test_deps"]} 
+
+def task_unittest():
+    return {"actions": ["cd src && python3 -m unittest unit_tests.py"],
+            "task_dep": ["install_test_deps"]}
 
 
 def task_create_deployment():
