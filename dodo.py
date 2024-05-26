@@ -4,6 +4,7 @@ from doit.tools import create_folder
 
 DOIT_CONFIG = {"default_tasks": ["translate_update", "mo"]}
 SRCDIR = Path("src")
+DOCSDIR = Path("docs")
 PODEST = SRCDIR / "po"
 
 
@@ -73,9 +74,19 @@ def task_mo():
         "targets": [PODEST / "ru_RU.UTF-8" / "LC_MESSAGES" / "cmc-timetable.mo"],
     }
 
+def task_translate_docs_update():
+    return {"actions": ["cd docs && make gettext && sphinx-intl update -p _build/gettext -l en && cd -"]}
+
+
+def task_translate_docs_compile():
+    return {"actions": ["cd docs && make -e SPHINXOPTS=\"-D language='en'\" html && cd -"]}
 
 def task_translate_update():
     return {"actions": None, "task_dep": ["pot", "po"]}
+
+
+def task_run_test():
+    return {"actions": ["cd tests && ./run_tests.sh > report.txt && cd -"]} 
 
 
 def task_create_deployment():
