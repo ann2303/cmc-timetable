@@ -78,6 +78,7 @@ class PDFTableParser(TableParser):
         table = camelot.read_pdf(self.file)[0]
         result = table.df.loc[1:]
         result.columns = table.df.iloc[0].tolist()
+        result.group = result.group.map(int)
         return result
 
 
@@ -91,7 +92,9 @@ class PickleParser(TableParser):
         Returns:
             pandas.DataFrame: The parsed table data.
         """
-        return pd.read_pickle(self.file)
+        result = pd.read_pickle(self.file)
+        result.group = result.group.map(int)
+        return result
 
 
 class ExcelTableParser(TableParser):
@@ -128,4 +131,5 @@ class ExcelTableParser(TableParser):
                 raise ValueError(_("Excel file contains multiple sheets. Please specify the sheet name."))
             else:
                 return result[self.sheet_name]
+        result.group = result.group.map(int)
         return result

@@ -44,3 +44,5 @@ services:
       - ./docs:/etc/Sphinx/source
     ports:
       - 8100:8100
+    environment:
+      - LANG=${LANG}

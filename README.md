@@ -1,6 +1,49 @@
 # cmc-timetable
 Расписание для студентов с информацией о спецкурсах и обычных занятиях
 
+## Установка зависимостей
+
+```sudo apt install docker```
+
+Для разработки:
+
+```pip install pipenv; pipenv install --dev```
+
+## Запуск приложения
+
+Осуществляется с помощью doit:
+
+```pipenv run doit create_deployment```
+
+Остановка приложения:
+
+```pipenv run doit delete_deployment```
+
+## Sphinx
+
+Sphinx-документация запускается в отдельном докер-контейнере с опцией LANG='ru'|'en'.
+
+## Babel
+
+Для перевода используется библиотека Babel. 
+
+Для обновления перевода приложения  используется команда:
+
+```pipenv run doit translate_update```
+
+Перевод находится в src/po.
+
+Компиляция в mo-файлы осуществляется внутри create_deployment во время запуска приложения.
+
+Для обновления перевод документации используются команды:
+
+```pipenv run doit run translate_docs_update```
+
+```pipenv run doit run translate_docs_compile```
+
+Перевод находится в docs/locale.
+
+
 ## Постановка решаемой задачи
 Цель проекта - создание интерактивного расписания со следующей функциональностью:
 1. расписание может генерироваться из уже существующих таблиц (в формате excel и pdf)
@@ -16,4 +59,5 @@
 
 ## Макет интерфейса
 ![Blank diagram (1)](https://github.com/ann2303/cmc-timetable/assets/93032454/c6ebc4b3-d9fa-4922-adef-361474b3c0d5)
+
 
