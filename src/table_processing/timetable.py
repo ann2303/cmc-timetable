@@ -16,8 +16,9 @@ class Timetable:
     @staticmethod
     def show_timetable(df: pd.DataFrame) -> str:
         """Show timetable"""
-        df.columns = [_("day of week"), _("start"), _("finish"), _("room"), _("subject"), _("teacher"), _("group")]
-        return build_table(df, "blue_light", index=False)
+        show_df = df.copy()
+        show_df.columns = [_("day of week"), _("start"), _("finish"), _("room"), _("subject"), _("teacher"), _("group")]
+        return build_table(show_df, "blue_light", index=False)
 
     @staticmethod
     def load_timetable(df: pd.DataFrame) -> str:
