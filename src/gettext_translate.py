@@ -1,3 +1,5 @@
+"""Gettext wrapper."""
+
 import gettext
 import locale
 

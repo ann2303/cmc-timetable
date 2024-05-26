@@ -29,7 +29,6 @@ templates = Jinja2Templates(directory="templates")
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Activate lifespan context for the app."""
-
     # Create folder for additional information
     support_dir = settings.SUPPORT_DIR
     support_dir.mkdir(parents=True, exist_ok=True)
@@ -61,7 +60,9 @@ async def health():
 async def index(request: Request, user: Annotated[User, Depends(get_current_active_user)]):
     """Show index page."""
     return templates.TemplateResponse(
-        request=request, context={"admin": user.is_admin, "gettext": _}, name="index.html"
+        request=request,
+        context={"admin": user.is_admin, "gettext": _},
+        name="index.html",
     )
 
 
@@ -71,11 +72,12 @@ languages = {"ru": ("ru_RU", "UTF-8"), "en": ("en_US", "UTF-8")}
 @app.get("/choose_lang", status_code=status.HTTP_200_OK)
 async def choose_lang(request: Request, user: Annotated[User, Depends(get_current_active_user)], lang: str):
     """Change locale for language."""
-
     try:
         locale.setlocale(locale.LC_ALL, languages[lang])
         return templates.TemplateResponse(
-            request=request, context={"admin": user.is_admin, "gettext": _}, name="index.html"
+            request=request,
+            context={"admin": user.is_admin, "gettext": _},
+            name="index.html",
         )
     except Exception as e:
         logging.error(e)

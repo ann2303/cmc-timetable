@@ -31,14 +31,22 @@ class Settings(BaseSettings):
     def database_dsn(self) -> str:
         """Return postgresql dsn with asynchronous driver asyncpg."""
         return "postgresql+asyncpg://{user}:{password}@{host}:{port}/{db}".format(
-            db=self.DB_NAME, user=self.DB_USER, password=self.DB_PASSWORD, host=self.DB_HOST, port=self.DB_PORT
+            db=self.DB_NAME,
+            user=self.DB_USER,
+            password=self.DB_PASSWORD,
+            host=self.DB_HOST,
+            port=self.DB_PORT,
         )
 
     @property
     def sync_database_dsn(self) -> str:
         """Return postgresql dsn with synchronous driver psycopg2."""
         return "postgresql+psycopg2://{user}:{password}@{host}:{port}/{db}".format(
-            db=self.DB_NAME, user=self.DB_USER, password=self.DB_PASSWORD, host=self.DB_HOST, port=self.DB_PORT
+            db=self.DB_NAME,
+            user=self.DB_USER,
+            password=self.DB_PASSWORD,
+            host=self.DB_HOST,
+            port=self.DB_PORT,
         )
 
 

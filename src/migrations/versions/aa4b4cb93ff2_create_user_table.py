@@ -1,4 +1,4 @@
-"""create user table
+"""create user table.
 
 Revision ID: aa4b4cb93ff2
 Revises: 
@@ -19,6 +19,7 @@ depends_on: Union[str, Sequence[str], None] = None
 
 
 def upgrade() -> None:
+    """Upgrade to new migration."""
     users = op.create_table(
         "users",
         sa.Column("username", sa.String, primary_key=True),
@@ -53,4 +54,5 @@ def upgrade() -> None:
 
 
 def downgrade() -> None:
+    """Downgrade to previous migration."""
     op.drop_table("users")
