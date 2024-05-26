@@ -31,13 +31,19 @@ async def get_timetable(request: Request, user: Annotated[User, Depends(get_curr
             return templates.TemplateResponse(
                 request=request,
                 name="timetable.html",
-                context={"timetable": Timetable.get_timetable_for_admin(), "gettext": _},
+                context={
+                    "timetable": Timetable.get_timetable_for_admin(),
+                    "gettext": _,
+                },
             )
         elif user.group is None:
             return templates.TemplateResponse(
                 request=request,
                 name="timetable.html",
-                context={"timetable": Timetable.get_timetable_for_teacher(user.username), "gettext": _},
+                context={
+                    "timetable": Timetable.get_timetable_for_teacher(user.username),
+                    "gettext": _,
+                },
             )
     except Exception as e:
         logging.error(e)
@@ -46,7 +52,10 @@ async def get_timetable(request: Request, user: Annotated[User, Depends(get_curr
         return templates.TemplateResponse(
             request=request,
             name="timetable.html",
-            context={"timetable": Timetable.get_timetable_for_student(user.group), "gettext": _},
+            context={
+                "timetable": Timetable.get_timetable_for_student(user.group),
+                "gettext": _,
+            },
         )
     except Exception as exc:
         logging.error(exc)
@@ -54,17 +63,22 @@ async def get_timetable(request: Request, user: Annotated[User, Depends(get_curr
 
 async def save_read_timetable(read_data: bytes, file_path: str):
     """Save the timetable file to the support directory."""
-
     async with aiofiles.open(file_path, "wb") as f:
         await f.write(read_data)
 
 
 @router.post("/load", status_code=status.HTTP_200_OK)
 async def load_timetable(
-    request: Request, user: Annotated[User, Depends(get_current_active_user)], uploaded_file: UploadFile
+    request: Request,
+    user: Annotated[User, Depends(get_current_active_user)],
+    uploaded_file: UploadFile,
 ):
+    """Load new timetable."""
     if not user.is_admin:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail=_("Only admin users can load timetable"))
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail=_("Only admin users can load timetable"),
+        )
     read_data = await uploaded_file.read()
 
     if uploaded_file.filename.endswith("pdf"):
@@ -87,16 +101,19 @@ async def load_timetable(
     return templates.TemplateResponse(
         request=request,
         name="timetable.html",
-        context={"timetable": Timetable.load_timetable(parser.get_table()), "gettext": _},
+        context={
+            "timetable": Timetable.load_timetable(parser.get_table()),
+            "gettext": _,
+        },
     )
 
 
 @router.get("/load", status_code=status.HTTP_200_OK)
 def show_timetable(request: Request, user: Annotated[User, Depends(get_current_active_user)]):
-    """
-    Show the loaded timetable for admin.
-    """
-
+    """Show the loaded timetable for admin."""
     if not user.is_admin:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail=_("Only admin users can load timetable"))
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail=_("Only admin users can load timetable"),
+        )
     return templates.TemplateResponse(request=request, context={"gettext": _}, name="load_timetable.html")

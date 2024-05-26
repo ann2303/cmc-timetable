@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-25 22:18+0300\n"
+"POT-Creation-Date: 2024-05-26 18:27+0300\n"
 "PO-Revision-Date: 2024-05-25 22:18+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru_RU\n"
@@ -17,7 +17,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.14.0\n"
+"Generated-By: Babel 2.15.0\n"
 
 #: src/settings.py:14
 msgid "Database connection host name"
@@ -63,7 +63,7 @@ msgstr ""
 msgid "User with username {} and password {} does not exist."
 msgstr "Пользователь с именем пользователя {} и паролем {} не существует."
 
-#: src/auth/dependencies.py:75
+#: src/auth/dependencies.py:77
 msgid "Inactive user"
 msgstr "Неактивный пользователь"
 
@@ -71,47 +71,47 @@ msgstr "Неактивный пользователь"
 msgid "{} parameter must be between 101 and 630"
 msgstr ""
 
-#: src/table_processing/table_parser.py:37
+#: src/table_processing/table_parser.py:52
 msgid "Exception: {}"
 msgstr "Исключение: {}"
 
-#: src/table_processing/table_parser.py:78
+#: src/table_processing/table_parser.py:128
 msgid "Excel file contains multiple sheets. Please specify the sheet name."
 msgstr "Файл Excel содержит несколько листов. "
 
-#: src/table_processing/timetable.py:20
+#: src/table_processing/timetable.py:23
 msgid "day of week"
 msgstr "день недели"
 
-#: src/table_processing/timetable.py:20
+#: src/table_processing/timetable.py:24
 msgid "start"
 msgstr "начало"
 
-#: src/table_processing/timetable.py:20
+#: src/table_processing/timetable.py:25
 msgid "finish"
 msgstr "закончить"
 
-#: src/table_processing/timetable.py:20
+#: src/table_processing/timetable.py:26
 msgid "room"
 msgstr "комната"
 
-#: src/table_processing/timetable.py:20
+#: src/table_processing/timetable.py:27
 msgid "subject"
 msgstr "тема"
 
-#: src/table_processing/timetable.py:20 src/table_processing/timetable.py:62
+#: src/table_processing/timetable.py:28 src/table_processing/timetable.py:70
 msgid "teacher"
 msgstr "учитель"
 
-#: src/table_processing/timetable.py:20
+#: src/table_processing/timetable.py:29
 msgid "group"
 msgstr "группа"
 
-#: src/table_processing/timetable.py:28
+#: src/table_processing/timetable.py:38
 msgid "Provided DataFrame must have columns: {}"
 msgstr "При условии, что DataFrame должен иметь столбцы: {}"
 
-#: src/table_processing/timetable.py:29
+#: src/table_processing/timetable.py:39
 msgid ""
 "Provided DataFrame: \n"
 "{}"
@@ -175,11 +175,11 @@ msgstr "Войти"
 msgid "Timetable"
 msgstr "Расписание"
 
-#: src/timetable/api.py:67 src/timetable/api.py:101
+#: src/timetable/api.py:80 src/timetable/api.py:117
 msgid "Only admin users can load timetable"
 msgstr "Только администраторы могут загружать расписание."
 
-#: src/timetable/api.py:86
+#: src/timetable/api.py:100
 msgid "Unsupported file format"
 msgstr "Неподдерживаемый формат файла."
 
