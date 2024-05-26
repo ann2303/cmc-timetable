@@ -12,9 +12,7 @@ exclude = [
     "__pycache__",
     "venv",
     "migrations",
-    "docs",
-    "**/*.mo",
-    "**/*.pot"
+    "docs"
 ]
 extend-ignore = [
     "E203",

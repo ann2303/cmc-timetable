@@ -19,53 +19,51 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.14.0\n"
 
-#: src/main.py:94 src/templates/load_timetable.html:155
-msgid "Remove "
-msgstr "Удалить "
-
-#: src/settings.py:13
+#: src/settings.py:14
 msgid "Database connection host name"
 msgstr "Имя хоста подключения к базе данных"
 
-#: src/settings.py:14
+#: src/settings.py:15
 msgid "Database connection port"
 msgstr "Порт подключения к базе данных"
 
-#: src/settings.py:15
+#: src/settings.py:16
 msgid "Name of the database to interact with"
 msgstr "Имя базы данных для взаимодействия."
 
-#: src/settings.py:16
+#: src/settings.py:17
 msgid "Password for database connection"
 msgstr "Пароль для подключения к базе данных"
 
-#: src/settings.py:17
+#: src/settings.py:18
 msgid "User name to make database operations"
 msgstr "Имя пользователя для выполнения операций с базой данных."
 
-#: src/settings.py:19
+#: src/settings.py:20
 msgid "Secret key to generate JWT signature"
 msgstr "Секретный ключ для генерации подписи JWT."
 
-#: src/settings.py:20
+#: src/settings.py:21
 msgid "Crypto algorithm to generate JWT signature"
 msgstr "Криптоалгоритм для генерации подписи JWT"
 
-#: src/settings.py:22
+#: src/settings.py:23
 msgid "Time access tken is valid after creation"
 msgstr "Маркер доступа по времени действителен после создания."
 
-#: src/settings.py:26
+#: src/settings.py:27
 msgid ""
 "Path to the support directory where additional files with timetable will "
 "be saved"
-msgstr "Путь к каталогу поддержки, в котором будут сохранены дополнительные файлы с расписанием."
+msgstr ""
+"Путь к каталогу поддержки, в котором будут сохранены дополнительные файлы"
+" с расписанием."
 
-#: src/auth/api.py:54
+#: src/auth/api.py:50
 msgid "User with username {} and password {} does not exist."
 msgstr "Пользователь с именем пользователя {} и паролем {} не существует."
 
-#: src/auth/dependencies.py:78
+#: src/auth/dependencies.py:75
 msgid "Inactive user"
 msgstr "Неактивный пользователь"
 
@@ -81,45 +79,47 @@ msgstr "Исключение: {}"
 msgid "Excel file contains multiple sheets. Please specify the sheet name."
 msgstr "Файл Excel содержит несколько листов. "
 
-#: src/table_processing/timetable.py:12 src/table_processing/timetable.py:31
+#: src/table_processing/timetable.py:20
 msgid "day of week"
 msgstr "день недели"
 
-#: src/table_processing/timetable.py:12 src/table_processing/timetable.py:31
+#: src/table_processing/timetable.py:20
 msgid "start"
 msgstr "начало"
 
-#: src/table_processing/timetable.py:12
+#: src/table_processing/timetable.py:20
 msgid "finish"
 msgstr "закончить"
 
-#: src/table_processing/timetable.py:12
+#: src/table_processing/timetable.py:20
 msgid "room"
 msgstr "комната"
 
-#: src/table_processing/timetable.py:12
+#: src/table_processing/timetable.py:20
 msgid "subject"
 msgstr "тема"
 
-#: src/table_processing/timetable.py:12 src/table_processing/timetable.py:60
+#: src/table_processing/timetable.py:20 src/table_processing/timetable.py:62
 msgid "teacher"
 msgstr "учитель"
 
-#: src/table_processing/timetable.py:12 src/table_processing/timetable.py:46
+#: src/table_processing/timetable.py:20
 msgid "group"
 msgstr "группа"
 
-#: src/table_processing/timetable.py:26
+#: src/table_processing/timetable.py:28
 msgid "Provided DataFrame must have columns: {}"
 msgstr "При условии, что DataFrame должен иметь столбцы: {}"
 
-#: src/table_processing/timetable.py:27
+#: src/table_processing/timetable.py:29
 msgid ""
 "Provided DataFrame: \n"
 "{}"
-msgstr "Предоставленный фрейм данных: \n{}"
+msgstr ""
+"Предоставленный фрейм данных: \n"
+"{}"
 
-#: src/templates/index.html:32
+#: src/templates/index.html:48
 msgid "Main page"
 msgstr "Главная страница"
 
@@ -147,6 +147,10 @@ msgstr "Перетащите файл или выберите «Добавить
 msgid "Load File"
 msgstr "Загрузить файл"
 
+#: src/templates/load_timetable.html:155
+msgid "Remove "
+msgstr "Удалить "
+
 #: src/templates/load_timetable.html:159 src/templates/timetable.html:41
 msgid "Go to Main Page"
 msgstr "Перейти на главную страницу"
@@ -171,12 +175,11 @@ msgstr "Войти"
 msgid "Timetable"
 msgstr "Расписание"
 
-#: src/timetable/api.py:64 src/timetable/api.py:96
+#: src/timetable/api.py:67 src/timetable/api.py:101
 msgid "Only admin users can load timetable"
 msgstr "Только администраторы могут загружать расписание."
 
-#: src/timetable/api.py:83
+#: src/timetable/api.py:86
 msgid "Unsupported file format"
 msgstr "Неподдерживаемый формат файла."
-
 
