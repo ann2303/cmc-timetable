@@ -17,7 +17,7 @@ def task_pot():
 def task_po():
     """Update translations."""
     return {
-            'actions': [f'pybabel update --ignore-pot-creation-date -D cmc-timetable -d {str(PODEST)} -i cmc-timetable.pot'],
+            'actions': [f'pybabel update -D cmc-timetable -d {str(PODEST)} -i cmc-timetable.pot'],
             'file_dep': ['cmc-timetable.pot'],
             'targets': [PODEST / "ru_RU.UTF-8" / "LC_MESSAGES" / "cmc-timetable.po"],
            }
