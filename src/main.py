@@ -37,7 +37,7 @@ async def lifespan(app: FastAPI):
     yield
 
     # Clean up folder
-    shutil.rmtree(support_dir.absolute())
+    shutil.rmtree(support_dir.resolve())
 
 
 app = FastAPI(default_response_class=ORJSONResponse, lifespan=lifespan)
