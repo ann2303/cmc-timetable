@@ -1,0 +1,161 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2024, Ezhov Andrei, Ilina Anna
+# This file is distributed under the same license as the cmc-timetable
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: cmc-timetable \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-25 16:33+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.14.0\n"
+
+#: ../../index.rst:9
+msgid "Contents:"
+msgstr ""
+
+#: ../../index.rst:7
+msgid "Документация по проекту \"Расписание занятий\""
+msgstr "Documentation for the project \"Class Schedule\""
+
+#: ../../index.rst:15
+msgid "Главная страница сайта выглядит следующим образом:"
+msgstr "The main page of the site looks like this:"
+
+#: ../../index.rst:19
+msgid ""
+"Для просмотра расписания занятий, вам необходимо быть зарегистрированным "
+"на нашем сайте и войти в свой аккаунт:"
+msgstr "To view the class schedule, you need to be registered on our website and log in to your account:"
+
+#: ../../index.rst:22
+msgid "`Страница аутентификации <http://localhost:8000/auth/login>`_"
+msgstr "`Authentication page <http://localhost:8000/auth/login>`_"
+
+#: ../../index.rst:24
+msgid "Страница аутентификации выглядит следующим образом:"
+msgstr "The authentication page looks like this:"
+
+#: ../../index.rst:28
+msgid "После этого можно перейти на страницу с расписанием занятий:"
+msgstr "After this you can go to the page with the class schedule:"
+
+#: ../../index.rst:30
+msgid "`Страница расписания <http://localhost:8000/timetable>`_"
+msgstr "`Schedule page <http://localhost:8000/timetable>`_"
+
+#: ../../index.rst:35
+msgid "Загрузка таблиц расписания(Только для администраторов)"
+msgstr "Download Schedule Tables(Administrators Only)"
+
+#: ../../index.rst:37
+msgid ""
+"Для загрузки таблицы расписания, вам необходимо быть авторизованным под "
+"администратором. После этого перейти на страницу загрузки таблицы: "
+"`Страница загрузки таблицы <http://localhost:8000/timetable/load>`_"
+msgstr "To download the schedule table, you need to be logged in as an administrator. "
+
+#: ../../index.rst:43
+msgid ""
+"Далее после того, как вы выбрали файл с расписанием занятий, необходимо "
+"нажать на кнопку \"Загрузить файл\" и вам откроется окно загрузки, "
+"выберитев нем файл."
+msgstr "Next, after you have selected the file with the class schedule, you need to click on the \"Upload file\" button and a download window will open, select the file in it."
+
+#: ../../index.rst:48
+msgid ""
+"После этого вы увидите имя файла, который вы загрузили и кнопку "
+"\"Загрузить файл\"."
+msgstr "After this, you will see the name of the file you downloaded and the \"Upload file\" button."
+
+#: ../../index.rst:52
+msgid ""
+"После успешной загрузки таблицы, вас перенаправит на просмотр новой "
+"таблицы."
+msgstr "After successfully loading the table, you will be redirected to view the new table."
+
+#: ../../index.rst:57
+msgid "Поддерживаемые форматы таблиц"
+msgstr "Supported table formats"
+
+#: ../../index.rst:59
+msgid "Наш сайт на данном этапе разработки поддерживает следующие форматы таблиц:"
+msgstr "Our site at this stage of development supports the following table formats:"
+
+#: ../../index.rst:61
+msgid "Pickle (`.pkl`)"
+msgstr ""
+
+#: ../../index.rst:62
+msgid "Excel (`.xlsx`)"
+msgstr ""
+
+#: ../../index.rst:63
+msgid "PDF (`.pdf`)"
+msgstr ""
+
+#: ../../index.rst:65
+msgid ""
+"Вы можете загрузить таблицу в любом из этих форматов и наш сайт распарсит"
+" ее и отобразит ее в виде расписания занятий."
+msgstr "You can upload a table in any of these formats and our site will parse it and display it as a class schedule."
+
+#: ../../index.rst:69
+msgid ""
+"Если возникнут проблемы с загрузкой таблицы, пожалуйста, обратитесь к "
+"разработчику(`email <mailto:ezhovandr@gmail.com>`_)."
+msgstr "If you have problems loading the table, please contact the developer(`email <mailto:ezhovandr@gmail.com>`_)."
+
+#: ../../index.rst:72
+msgid "Требования к оформлению таблицы"
+msgstr "Table design requirements"
+
+#: ../../index.rst:74
+msgid ""
+"Для того, чтобы таблица была загружена на наш сайт, она должна "
+"соответствовать следующим требованиям:"
+msgstr "In order for a table to be uploaded to our website, it must meet the following requirements:"
+
+#: ../../index.rst:84
+msgid "В таблице должны быть следующие колонки:"
+msgstr "The table should have the following columns:"
+
+#: ../../index.rst:77
+msgid "`subject` - название предмета"
+msgstr "`subject` - name of the subject"
+
+#: ../../index.rst:78
+msgid "`teacher` - преподаватель"
+msgstr "`teacher` - teacher"
+
+#: ../../index.rst:79
+msgid "`day of week` - день недели"
+msgstr "`day of week` - day of the week"
+
+#: ../../index.rst:80
+msgid "`start` - начало занятия"
+msgstr "`start` - start of class"
+
+#: ../../index.rst:81
+msgid "`finish` - конец занятия"
+msgstr "`finish` - end of class"
+
+#: ../../index.rst:82
+msgid "`room` - комната"
+msgstr "`room` - room"
+
+#: ../../index.rst:83
+msgid "`group` - группа"
+msgstr "`group` - group"
+
+

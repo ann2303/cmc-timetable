@@ -34,11 +34,11 @@
 
     </style>
 </head>
-<h2>Timetable</h2>
+<h2>{{ gettext("Timetable") }}</h2>
 
 <body>
     {{ timetable | safe }}
-    <button class="home" onclick="window.location.href='/'">Go to Main Page</button>
+    <button class="home" onclick="window.location.href='/'">{{ gettext("Go to Main Page") }}</button>
 </body>
 
 </html>

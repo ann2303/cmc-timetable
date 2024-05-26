@@ -1,10 +1,9 @@
 import logging
 
 import pandas as pd
-
-from auth.models import User
-
 from pretty_html_table import build_table
+
+from gettext_translate import _
 
 
 class Timetable:
@@ -13,24 +12,26 @@ class Timetable:
     columns = ["day of week", "start", "finish", "room", "subject", "teacher", "group"]
 
     timetable: pd.DataFrame = pd.DataFrame(columns=columns)
-    
+
     @staticmethod
     def show_timetable(df: pd.DataFrame) -> str:
         """Show timetable"""
-        return build_table(df, 'blue_light', index=False)
+        show_df = df.copy()
+        show_df.columns = [_("day of week"), _("start"), _("finish"), _("room"), _("subject"), _("teacher"), _("group")]
+        return build_table(show_df, "blue_light", index=False)
 
     @staticmethod
     def load_timetable(df: pd.DataFrame) -> str:
         """Load timetable from given dataframe"""
         df_columns = set(df.columns)
         if not df_columns == set(Timetable.columns):
-            logging.error(f"Provided DataFrame must have columns: {', '.join(Timetable.columns)}")
-            logging.error(f"Provided DataFrame: \n{len(df_columns)}")
+            logging.error(_("Provided DataFrame must have columns: {}").format(", ".join(Timetable.columns)))
+            logging.error(_("Provided DataFrame: \n{}").format(len(df_columns)))
             for i in df_columns:
                 logging.error(f"{i}")
 
         Timetable.timetable = df.sort_values(["day of week", "start"]).reset_index(drop=True)
-        return Timetable.timetable.to_html()
+        return Timetable.show_timetable(Timetable.timetable)
 
     @staticmethod
     def get_timetable_for_student(student_group) -> str:
@@ -58,7 +59,7 @@ class Timetable:
             str: The timetable for the specified student in html format.
         """
 
-        return Timetable.show_timetable(Timetable.timetable[Timetable.timetable["teacher"] == teacher_name])
+        return Timetable.show_timetable(Timetable.timetable[Timetable.timetable[_("teacher")] == teacher_name])
 
     @staticmethod
     def get_timetable_for_admin():

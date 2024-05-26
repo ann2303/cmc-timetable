@@ -22,6 +22,7 @@ from auth.dependencies import (
     get_current_active_user,
 )
 from auth.models import User
+from gettext_translate import _
 from settings import settings
 
 router = APIRouter(prefix="/auth", tags=["auth"])
@@ -31,7 +32,7 @@ templates = Jinja2Templates(directory="templates")
 @router.get("/login/", status_code=status.HTTP_200_OK)
 async def login_page(request: Request):
     """Show log in page."""
-    return templates.TemplateResponse(request=request, name="login.html")
+    return templates.TemplateResponse(request=request, context={"gettext": _}, name="login.html")
 
 
 @router.post("/login/")
@@ -46,7 +47,7 @@ async def login_for_access_token(
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail=f"User with username {username} and password {password} does not exist.",
+            detail=_("User with username {} and password {} does not exist.").format(username, password),
         )
     access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(data={"sub": user.username}, expires_delta=access_token_expires)
@@ -64,8 +65,6 @@ async def logout(response: Response):
 
 
 @router.get("/users/me/", response_model=User)
-async def read_users_me(
-    current_user: Annotated[User, Depends(get_current_active_user)],
-):
+async def read_users_me(current_user: Annotated[User, Depends(get_current_active_user)],):
     """Return user from request."""
     return current_user
