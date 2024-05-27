@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-26 20:15+0300\n"
+"POT-Creation-Date: 2024-05-27 14:23+0300\n"
 "PO-Revision-Date: 2024-05-25 22:18+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru_RU\n"
@@ -89,7 +89,7 @@ msgstr "начало"
 
 #: src/table_processing/timetable.py:25
 msgid "finish"
-msgstr "закончить"
+msgstr "конец"
 
 #: src/table_processing/timetable.py:26
 msgid "room"
@@ -97,7 +97,7 @@ msgstr "комната"
 
 #: src/table_processing/timetable.py:27
 msgid "subject"
-msgstr "тема"
+msgstr "предмет"
 
 #: src/table_processing/timetable.py:28
 msgid "teacher"
