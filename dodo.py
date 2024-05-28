@@ -88,16 +88,20 @@ def task_install_test_deps():
     return {"actions": ["pip install -r tests/requirements.txt"]}
 
 def task_run_test():
-    return {"actions": ["cd tests && ./run_tests.sh > report.txt && cd -"],
-            "task_dep": ["install_test_deps"]} 
+    return {
+        "actions": ["cd tests && ./run_tests.sh > report.txt && cd -"],
+        "task_dep": ["install_test_deps"]
+    } 
 
 def task_unittest():
-    return {"actions": ["cd src && python3 -m unittest unit_tests.py"],
-            "task_dep": ["install_test_deps"]}
+    return {
+        "actions": ["cd src && python3 -m unittest unit_tests.py && cd -"],
+        "task_dep": ["install_test_deps"]
+    }
 
 
 def task_create_deployment():
-    return {"actions": ["docker compose down", "docker compose up --build"], "task_dep": ["mo"]}
+    return {"actions": ["docker compose down", "docker compose up --build -d"], "task_dep": ["mo"]}
 
 
 def task_delete_deployment():
